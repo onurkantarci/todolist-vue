@@ -1,13 +1,17 @@
 <template>
+  <AddTodo :fetchData="fetchData" />
   <div v-for="todo in todos" :key="todo._id" class="todo-list">
     <h2>{{ todo.todoName }}</h2>
   </div>
 </template>
 
 <script>
+import AddTodo from "./AddTodo.vue";
 export default {
   name: "App",
-  components: {},
+  components: {
+    AddTodo,
+  },
   data() {
     return {
       todos: [],
