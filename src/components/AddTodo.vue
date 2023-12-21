@@ -24,14 +24,14 @@ export default {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                todoName: this.newTodo,
-                isComplete: false,
-            })
+              todoName: this.newTodo,
+              isComplete: false,
+            }),
           }
         );
         const data = await response.json();
         this.todos = data.data;
-        this.fetchData()
+        this.fetchData();
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -44,15 +44,16 @@ export default {
 form {
   margin: 20px;
 }
-form input, button {
-    padding: 10px;
-    border-radius: 5px;
-    margin: 5px;
-    background: white;
-    border: 1px solid grey;
-    transition: background 0.2s;
+form input,
+button {
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px;
+  background: white;
+  border: 1px solid grey;
+  transition: background 0.2s;
 }
 form button:hover {
-    background: #68D89B;
+  background: #68d89b;
 }
 </style>

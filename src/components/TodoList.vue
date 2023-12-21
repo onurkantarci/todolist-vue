@@ -1,6 +1,11 @@
 <template>
   <AddTodo :fetchData="fetchData" />
   <div v-for="todo in todos" :key="todo._id" class="todo-list">
+    <UpdateTodo
+      :todoId="todo._id"
+      :fetchData="fetchData"
+      :isComplete="todo.isComplete"
+    />
     <h2>{{ todo.todoName }}</h2>
     <RemoveTodo :todoId="todo._id" :fetchData="fetchData" />
   </div>
@@ -9,11 +14,13 @@
 <script>
 import AddTodo from "./AddTodo.vue";
 import RemoveTodo from "./RemoveTodo.vue";
+import UpdateTodo from "./UpdateTodo.vue";
 export default {
   name: "App",
   components: {
     AddTodo,
     RemoveTodo,
+    UpdateTodo,
   },
   data() {
     return {
@@ -63,6 +70,6 @@ export default {
   width: 100%;
 }
 .todo-list:hover {
-  background: #e3e3e3;
+  background: #faedca;
 }
 </style>
