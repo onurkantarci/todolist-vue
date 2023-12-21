@@ -9,7 +9,7 @@
 <script>
 export default {
   name: "AddTodo",
-  props: ["fetchData"],
+  props: ["fetchData", "loading"],
   data() {
     return {
       newTodo: "",
@@ -17,6 +17,7 @@ export default {
   },
   methods: {
     async postTodo() {
+      this.$emit("loading", true);
       try {
         const response = await fetch(
           "https://calm-plum-jaguar-tutu.cyclic.app/todos",
@@ -32,6 +33,7 @@ export default {
         const data = await response.json();
         this.todos = data.data;
         this.fetchData();
+        this.$emit("loading", false);
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -52,6 +54,9 @@ button {
   background: white;
   border: 1px solid grey;
   transition: background 0.2s;
+}
+form button {
+  cursor: pointer;
 }
 form button:hover {
   background: #68d89b;

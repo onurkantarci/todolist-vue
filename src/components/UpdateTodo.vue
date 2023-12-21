@@ -10,7 +10,7 @@
 <script>
 export default {
   name: "UpdateTodo",
-  props: ["todoId", "fetchData", "isComplete"],
+  props: ["todoId", "fetchData", "isComplete", "loading"],
   data() {
     return {
       checkstate: this.isComplete,
@@ -18,6 +18,7 @@ export default {
   },
   methods: {
     async updateTodo() {
+      this.$emit("loading", true);
       try {
         const response = await fetch(
           "https://calm-plum-jaguar-tutu.cyclic.app/todos/" + this.todoId,
@@ -32,6 +33,7 @@ export default {
         const data = await response.json();
         this.todos = data.data;
         this.fetchData();
+        this.$emit("loading", false);
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -42,8 +44,12 @@ export default {
 
 <style scoped>
 .checkbox-input {
+  cursor: pointer;
   margin: 20px;
   transform: scale(1.5);
   accent-color: #297373;
+}
+.checkbox-input:hover {
+  accent-color: #3ca6a6;
 }
 </style>

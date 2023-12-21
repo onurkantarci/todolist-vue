@@ -5,9 +5,10 @@
 <script>
 export default {
   name: "RemoveTodo",
-  props: ["fetchData", "todoId"],
+  props: ["fetchData", "todoId", "loading"],
   methods: {
     async deleteTodo() {
+      this.$emit("loading", true);
       try {
         const response = await fetch(
           "https://calm-plum-jaguar-tutu.cyclic.app/todos/" + this.todoId,
@@ -18,6 +19,7 @@ export default {
         const data = await response.json();
         this.todos = data.data;
         this.fetchData();
+        this.$emit("loading", false);
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -28,6 +30,7 @@ export default {
 
 <style scoped>
 button {
+  cursor: pointer;
   padding: 10px;
   margin: 10px;
   transition: background, border 0.2s;
@@ -40,7 +43,7 @@ button {
   border-right: 1px solid grey;
 }
 button:hover {
-  background: #FE5D26;
+  background: #fe5d26;
   color: white;
   border-bottom: 3px solid grey;
   border-left: 3px solid grey;
