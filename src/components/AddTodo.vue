@@ -4,12 +4,17 @@
     <input placeholder="Type a new todo..." type="text" v-model="newTodo" />
     <button type="submit">Add</button>
   </form>
+  <TodoToast ref="todoToast" />
 </template>
 
 <script>
+import TodoToast from "./TodoToast.vue";
 export default {
   name: "AddTodo",
   props: ["fetchData", "loading"],
+  components: {
+    TodoToast,
+  },
   data() {
     return {
       newTodo: "",
@@ -32,11 +37,16 @@ export default {
         );
         const data = await response.json();
         this.todos = data.data;
-        this.fetchData();
         this.$emit("loading", false);
+        this.fetchData();
+        this.showToast("New todo added successfully", "success");
       } catch (error) {
+        this.showToast(`An error occured: ${error.message}`, "error");
         console.error("Error fetching data", error);
       }
+    },
+    showToast(message, type) {
+      this.$refs.todoToast.showToast(message, type);
     },
   },
 };

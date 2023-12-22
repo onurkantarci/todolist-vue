@@ -1,10 +1,15 @@
 <template>
   <button @click="deleteTodo">X</button>
+  <TodoToast ref="todoToast" />
 </template>
 
 <script>
+import TodoToast from "./TodoToast.vue";
 export default {
   name: "RemoveTodo",
+  components: {
+    TodoToast,
+  },
   props: ["fetchData", "todoId", "loading"],
   methods: {
     async deleteTodo() {
@@ -20,9 +25,14 @@ export default {
         this.todos = data.data;
         this.fetchData();
         this.$emit("loading", false);
+        this.showToast("Removed todo successfully", "success");
       } catch (error) {
-        console.error("Error fetching data", error);
+        this.showToast(`An error occured: ${error.message}`, "error");
+        console.error("Error fetching data", error.message);
       }
+    },
+    showToast(message, type) {
+      this.$refs.todoToast.showToast(message, type);
     },
   },
 };

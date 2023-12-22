@@ -5,12 +5,17 @@
     @change="updateTodo"
     class="checkbox-input"
   />
+  <TodoToast ref="todoToast" />
 </template>
 
 <script>
+import TodoToast from "./TodoToast.vue";
 export default {
   name: "UpdateTodo",
   props: ["todoId", "fetchData", "isComplete", "loading"],
+  components: {
+    TodoToast,
+  },
   data() {
     return {
       checkstate: this.isComplete,
@@ -34,9 +39,14 @@ export default {
         this.todos = data.data;
         this.fetchData();
         this.$emit("loading", false);
+        this.showToast("Updated todo successfully", "success");
       } catch (error) {
+        this.showToast(`An error occured: ${error.message}`, "error");
         console.error("Error fetching data", error);
       }
+    },
+    showToast(message, type) {
+      this.$refs.todoToast.showToast(message, type);
     },
   },
 };

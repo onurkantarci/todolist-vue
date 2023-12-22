@@ -1,15 +1,22 @@
 <template>
-  <AddTodo :loading="loading" :fetchData="fetchData" />
-  <h3 v-if="loading">Loading...</h3>
-  <div v-for="todo in todos" :key="todo._id" class="todo-list">
-    <UpdateTodo
-      :loading="loading"
-      :todoId="todo._id"
-      :fetchData="fetchData"
-      :isComplete="todo.isComplete"
-    />
-    <h2>{{ todo.todoName }}</h2>
-    <RemoveTodo :loading="loading" :todoId="todo._id" :fetchData="fetchData" />
+  <div id="app">
+    <AddTodo :loading="loading" :fetchData="fetchData" />
+    <h3 v-if="loading">Loading...</h3>
+    <div v-for="todo in todos" :key="todo._id" class="todo-list">
+      <UpdateTodo
+        :loading="loading"
+        :todoId="todo._id"
+        :fetchData="fetchData"
+        :isComplete="todo.isComplete"
+      />
+      <h2>{{ todo.todoName }}</h2>
+      <RemoveTodo
+        :loading="loading"
+        :todoId="todo._id"
+        :fetchData="fetchData"
+      />
+      <TodoToast ref="todoToast" />
+    </div>
   </div>
 </template>
 
@@ -17,12 +24,15 @@
 import AddTodo from "./AddTodo.vue";
 import RemoveTodo from "./RemoveTodo.vue";
 import UpdateTodo from "./UpdateTodo.vue";
+import TodoToast from "./TodoToast.vue";
+
 export default {
   name: "App",
   components: {
     AddTodo,
     RemoveTodo,
     UpdateTodo,
+    TodoToast,
   },
   data() {
     return {
@@ -44,8 +54,12 @@ export default {
         this.todos = data.data;
         this.loading = false;
       } catch (error) {
+        this.showToast("An error occured", "error");
         console.error("Error fetching data", error);
       }
+    },
+    showToast(message, type) {
+      this.$refs.todoToast.showToast(message, type);
     },
   },
 };
