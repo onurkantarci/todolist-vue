@@ -1,8 +1,10 @@
 <template>
   <div id="app">
+    <label>Search todo: </label>
+    <input class="search-input" type="text" v-model="search" />
     <AddTodo :loading="loading" :fetchData="fetchData" />
     <h3 v-if="loading">Loading...</h3>
-    <div v-for="todo in todos" :key="todo._id" class="todo-list">
+    <div v-for="todo in filteredTodos" :key="todo._id" class="todo-list">
       <UpdateTodo
         :loading="loading"
         :todoId="todo._id"
@@ -38,10 +40,18 @@ export default {
     return {
       todos: [],
       loading: true,
+      search: "",
     };
   },
   mounted() {
     this.fetchData();
+  },
+  computed: {
+    filteredTodos() {
+      return this.todos.filter((todo) => {
+        return todo.todoName.match(this.search);
+      });
+    },
   },
   methods: {
     async fetchData() {
@@ -90,5 +100,13 @@ export default {
 }
 .todo-list:hover {
   background: #faedca;
+}
+.search-input {
+  padding: 10px;
+  border-radius: 5px;
+  margin-right:  70px;
+  background: white;
+  border: 1px solid grey;
+  transition: background 0.2s;
 }
 </style>
