@@ -1,10 +1,5 @@
 <template>
-  <input
-    type="checkbox"
-    v-model="checkstate"
-    @change="updateTodo"
-    class="checkbox-input"
-  />
+  <input type="checkbox" v-model="checkstate" class="checkbox-input" />
   <TodoToast ref="todoToast" />
 </template>
 
