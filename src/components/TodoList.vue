@@ -48,9 +48,7 @@ export default {
   },
   computed: {
     filteredTodos() {
-      return this.todos.filter((todo) => {
-        return todo.todoName.match(this.search);
-      });
+      return this.todos.filter((todo) => todo.todoName.match(this.search));
     },
   },
   methods: {
@@ -104,7 +102,7 @@ export default {
 .search-input {
   padding: 10px;
   border-radius: 5px;
-  margin-right:  70px;
+  margin-right: 70px;
   background: white;
   border: 1px solid grey;
   transition: background 0.2s;
