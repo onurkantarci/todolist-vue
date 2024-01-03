@@ -27,6 +27,7 @@ import AddTodo from "./AddTodo.vue";
 import RemoveTodo from "./RemoveTodo.vue";
 import UpdateTodo from "./UpdateTodo.vue";
 import TodoToast from "./TodoToast.vue";
+import { fetchData } from "../api";
 
 export default {
   name: "App",
@@ -55,10 +56,7 @@ export default {
     async fetchData() {
       this.loading = true;
       try {
-        const response = await fetch(
-          "https://calm-plum-jaguar-tutu.cyclic.app/todos"
-        );
-        const data = await response.json();
+        const data = await fetchData();
         this.todos = data.data;
         this.loading = false;
       } catch (error) {

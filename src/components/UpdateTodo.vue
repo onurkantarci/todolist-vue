@@ -1,10 +1,16 @@
 <template>
-  <input type="checkbox" v-model="checkstate" class="checkbox-input" />
+  <input
+    type="checkbox"
+    :checked="checkstate"
+    @change="updateTodo"
+    class="checkbox-input"
+  />
   <TodoToast ref="todoToast" />
 </template>
 
 <script>
 import TodoToast from "./TodoToast.vue";
+import { updateData } from "../api";
 export default {
   name: "UpdateTodo",
   props: ["todoId", "fetchData", "isComplete", "loading"],
@@ -20,18 +26,7 @@ export default {
     async updateTodo() {
       this.$emit("loading", true);
       try {
-        const response = await fetch(
-          "https://calm-plum-jaguar-tutu.cyclic.app/todos/" + this.todoId,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              isComplete: !this.isComplete,
-            }),
-          }
-        );
-        const data = await response.json();
-        this.todos = data.data;
+        await updateData(this.todoId, { isComplete: !this.isComplete });
         this.fetchData();
         this.$emit("loading", false);
         this.showToast("Updated todo successfully", "success");

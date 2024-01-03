@@ -5,6 +5,7 @@
 
 <script>
 import TodoToast from "./TodoToast.vue";
+import { deleteData } from "../api";
 export default {
   name: "RemoveTodo",
   components: {
@@ -15,14 +16,7 @@ export default {
     async deleteTodo() {
       this.$emit("loading", true);
       try {
-        const response = await fetch(
-          "https://calm-plum-jaguar-tutu.cyclic.app/todos/" + this.todoId,
-          {
-            method: "DELETE",
-          }
-        );
-        const data = await response.json();
-        this.todos = data.data;
+        await deleteData(this.todoId);
         this.fetchData();
         this.$emit("loading", false);
         this.showToast("Removed todo successfully", "success");

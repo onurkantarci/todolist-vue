@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { createData } from "@/api";
 import TodoToast from "./TodoToast.vue";
 export default {
   name: "AddTodo",
@@ -24,19 +25,11 @@ export default {
     async postTodo() {
       this.$emit("loading", true);
       try {
-        const response = await fetch(
-          "https://calm-plum-jaguar-tutu.cyclic.app/todos",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              todoName: this.newTodo,
-              isComplete: false,
-            }),
-          }
-        );
-        const data = await response.json();
-        this.todos = data.data;
+        const newTodoData = {
+          todoName: this.newTodo,
+          isComplete: false,
+        };
+        await createData(newTodoData);
         this.$emit("loading", false);
         this.fetchData();
         this.showToast("New todo added successfully", "success");
