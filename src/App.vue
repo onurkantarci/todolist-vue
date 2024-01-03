@@ -1,10 +1,16 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/todolist">TodoList 4</router-link>
+    <router-link to="/todolist">TodoList</router-link>
   </nav>
   <router-view />
 </template>
+
+<script>
+export default {
+  name: "App",
+};
+</script>
 
 <style>
 #app {
