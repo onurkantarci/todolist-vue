@@ -4,17 +4,17 @@ const routes = [
   {
     path: "/",
     name: "HomeView",
-    component: () => import("../components/TodoCount.vue"),
+    component: () => import("../views/HomeView.vue"),
   },
   {
     path: "/todolist",
     name: "TodoListView",
-    component: () => import("../components/TodoList.vue"),
+    component: () => import("../views/TodoListView.vue"),
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 });
 
