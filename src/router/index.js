@@ -7,7 +7,7 @@ const routes = [
     component: () => import("../views/HomeView.vue"),
   },
   {
-    path: "/todolist",
+    path: "/todo-list",
     name: "TodoListView",
     component: () => import("../views/TodoListView.vue"),
   },
