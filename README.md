@@ -1,24 +1,25 @@
-# todo-fetch-project
+# TodoApp
 
-## Project setup
+App for creating todolist and managing current todos.
+
+Developed using Vite and Vue.js
+
+---
+
+### Starting the app
+
+In the project directory, you can run:
+
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
-npm run serve
+npm run dev
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+You can access from http://localhost:5173/
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+---
